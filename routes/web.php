@@ -35,8 +35,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/gpt/{id?}', [GptController::class, 'index'])->name('chat.gpt');
-
+    Route::get('/chat/gpt/{id?}', [GptController::class, 'index'])->name('chat.gpt');
+    Route::post('/chat/gpt', [GptController::class, 'store'])->name('chat.gpt.store');
 });
 
 require __DIR__.'/auth.php';

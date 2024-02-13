@@ -7,7 +7,8 @@ const form = useForm({
 });
 
 const submit = () => {
-  console.log('Submitted!');
+  const response = form.post(route('chat.gpt.store'));
+  console.log(response);
 }
 </script>
 
@@ -28,7 +29,7 @@ const submit = () => {
               type="text" 
               class="w-full bg-white rounded-lg" 
               placeholder="Ask me anything !" 
-              v-model="prompt"
+              v-model="form.prompt"
               @keyup="submit"
             />
             <div class="absolute inset-y-0 right-0 flex items-center pl-3">

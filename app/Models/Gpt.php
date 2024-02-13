@@ -9,6 +9,10 @@ class Gpt extends Model
 {
     use HasFactory;
 
+    public const USER_ROLE = 'user';
+    public const SYSTEM_ROLE = 'system';
+    public const ASSISTANT_ROLE = 'assistant';
+
     protected $table = 'gpts';
 
     protected $fillable = [
