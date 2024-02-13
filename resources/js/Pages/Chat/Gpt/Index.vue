@@ -2,6 +2,11 @@
 import ChatLayout from '@/Layouts/ChatLayout.vue';
 import { useForm } from '@inertiajs/vue3';
 
+const props = defineProps({
+  messages: Array,
+  chat: null | Object
+});
+
 const form = useForm({
   prompt: ''
 });
