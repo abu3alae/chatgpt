@@ -1,6 +1,6 @@
 <script setup>
 import ChatLayout from '@/Layouts/ChatLayout.vue';
-import { useForm } from '@inertiajs/vue3';
+import { Link, useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
   messages: Array,
@@ -21,6 +21,15 @@ const submit = () => {
 <template>
   <ChatLayout>
     <template #sidebar>
+      <ul class="p-2">
+        <template v-if="messages" v-for="message in messages" :key="message.id">
+          <li class="px-4 py-2 my-2 flex justify-between font-semibold text-white bg-slate-700 hover:bg-slate-500 rounded-lg duration-150">
+            <Link :href="route('chat.gpt', message.id)">
+              {{ message.chat_content[0].content }}
+            </Link>
+          </li>
+        </template>>
+      </ul>
         
     </template>
     <div class="w-full flex text-white">
