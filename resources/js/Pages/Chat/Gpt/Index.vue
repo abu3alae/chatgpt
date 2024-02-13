@@ -1,12 +1,21 @@
 <template>
-  <div>
-   Hello from Chat/Gpt/Index.vue
-  </div>
+  <ChatLayout>
+    <template #sidebar>
+        <div class="w-full flex text-white">
+            
+        </div>
+    </template>
+  </ChatLayout>
 </template>
 
 <script>
+import ChatLayout from '@/Layouts/ChatLayout.vue';
+
 export default {
   name: 'Index',
+  components: {
+    ChatLayout,
+  },
   data() {
     return {
       // Your data properties go here
@@ -21,6 +30,3 @@ export default {
 };
 </script>
 
-<style scoped>
-/* Your component-specific styles go here */
-</style>
