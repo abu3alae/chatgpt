@@ -43,9 +43,14 @@ class GptController extends Controller
 
         //dd($response);
 
+        $messages[] = [
+            'role' => Gpt::ASSISTANT_ROLE,
+            'content' => $response['choices'][0]['message']['content'],
+        ];
+
         $chat = $this->gpt->create([
             'user_id' => auth()->id(),
-            'chat_content' => ['role' => Gpt::ASSISTANT_ROLE, 'content' => $response['choices'][0]['message']['content']],
+            'chat_content' => $messages,
         ]);
 
         return redirect()->route('chat.gpt', ['id' => $chat->id]);
