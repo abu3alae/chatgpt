@@ -13,8 +13,9 @@ const form = useForm({
 });
 
 const submit = () => {
-  const response = form.post(route('chat.gpt.store'));
-  console.log(response);
+  const destination = props.chat ? route('chat.gpt.store', props.chat.id) : route('chat.gpt.store');
+  const response = form.post(destination);
+  //console.log(response);
 }
 </script>
 

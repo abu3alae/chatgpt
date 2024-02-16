@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use OpenAI\Laravel\Facades\OpenAI;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GptStoreRequest;
+use Illuminate\Http\RedirectResponse;
 
 /**
  * @property Gpt $gpt
@@ -28,9 +29,16 @@ class GptController extends Controller
         ]);
     }
 
-    public function store(GptStoreRequest $request)
+    public function store(GptStoreRequest $request, int $id = null): RedirectResponse
     {
         //dd($request->all());
+        $messages = [];
+
+        if ($id) {
+            $chat = Gpt::find($id);
+            $messages = $chat->chat_content;
+        }
+
         $messages[] = [
             'role' => Gpt::USER_ROLE,
             'content' => $request->prompt,
@@ -48,10 +56,15 @@ class GptController extends Controller
             'content' => $response['choices'][0]['message']['content'],
         ];
 
-        $chat = $this->gpt->create([
-            'user_id' => auth()->id(),
-            'chat_content' => $messages,
-        ]);
+        $chat = $this->gpt->updateOrCreate(
+            [
+                'id' => $id,
+                'user_id' => auth()->id(),
+            ], 
+            [
+                'chat_content' => $messages,
+            ]
+        );
 
         return redirect()->route('chat.gpt', ['id' => $chat->id]);
     }
