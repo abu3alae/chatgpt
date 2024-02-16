@@ -1,7 +1,8 @@
 <script setup>
 import ChatLayout from '@/Layouts/ChatLayout.vue';
-import { Link, useForm } from '@inertiajs/vue3';
+import { Head, Link, useForm } from '@inertiajs/vue3';
 import Content from '@/Components/Content.vue';
+import { computed } from 'vue';
 
 const props = defineProps({
   messages: Array,
@@ -15,12 +16,16 @@ const form = useForm({
 const submit = () => {
   const destination = props.chat ? route('chat.gpt.store', props.chat.id) : route('chat.gpt.store');
   const response = form.post(destination);
+  form.prompt = '';
   //console.log(response);
 }
+
+ const title = computed( () => props.chat ? props.chat?.chat_content[0].content : 'New Chat');
 </script>
 
 
 <template>
+  <Head :title="title" />
   <ChatLayout>
     <template #sidebar>
       <ul class="p-2" v-if="messages">
