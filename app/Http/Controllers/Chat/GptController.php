@@ -68,4 +68,11 @@ class GptController extends Controller
 
         return redirect()->route('chat.gpt', ['id' => $chat->id]);
     }
+
+    public function destroy(int $id): RedirectResponse
+    {
+        Gpt::findOrFail($id)->delete();
+
+        return redirect()->route('chat.gpt');
+    }
 }
