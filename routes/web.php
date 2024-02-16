@@ -40,4 +40,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/chat/gpt/{id}', [GptController::class, 'destroy'])->name('chat.gpt.destroy');
 });
 
+
+
 require __DIR__.'/auth.php';

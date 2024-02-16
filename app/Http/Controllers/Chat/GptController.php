@@ -17,14 +17,18 @@ class GptController extends Controller
 {
     public function __construct(Gpt $gpt)
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
         $this->gpt = $gpt;
     }
 
     public function index(string $id = null)
     {
+        $chat = fn() => $id ? Gpt::findOrFail($id) : null;
+        
+        //$chat = $id ? Gpt::findOrFail($id) : null;
+        //dd($chat);
         return Inertia::render('Chat/Gpt/Index', [
-            'chat' => fn() => $id ? Gpt::findOrFail($id) : null,
+            'chat' => $chat,
             'messages' => Gpt::where('user_id', auth()->id())->latest()->get(),
         ]);
     }
