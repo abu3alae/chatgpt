@@ -24,6 +24,16 @@ const submit = () => {
   <ChatLayout>
     <template #sidebar>
       <ul class="p-2" v-if="messages">
+        <li v-if="chat"
+          class="px-4 py-2 my-2 flex justify-between font-semibold text-green-600 bg-slate-700 hover:bg-slate-500 rounded-lg duration-150"
+          >
+            <Link :href="route('chat.gpt')" class="w-full ">
+              New Chat
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            </Link>
+        </li>
         <template v-for="message in messages" :key="message.id">
           <li class="px-4 py-2 my-2 flex justify-between font-semibold text-white bg-slate-700 hover:bg-slate-500 rounded-lg duration-150">
             <Link :href="route('chat.gpt', message.id)">
