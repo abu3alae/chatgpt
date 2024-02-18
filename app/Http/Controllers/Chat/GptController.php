@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Chat;
 
 use App\Models\Gpt;
 use Inertia\Inertia;
-use Illuminate\Http\Request;
 use OpenAI\Laravel\Facades\OpenAI;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GptStoreRequest;
-use Illuminate\Http\RedirectResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+
 
 /**
  * @property Gpt $gpt
@@ -17,7 +17,7 @@ class GptController extends Controller
 {
     public function __construct(Gpt $gpt)
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
         $this->gpt = $gpt;
     }
 
@@ -57,13 +57,13 @@ class GptController extends Controller
 
         $messages[] = [
             'role' => Gpt::ASSISTANT_ROLE,
-            'content' => $response['choices'][0]['message']['content'],
+            'content' => $response->choices[0]->message->content,
         ];
 
         $chat = $this->gpt->updateOrCreate(
             [
                 'id' => $id,
-                'user_id' => auth()->id(),
+                'user_id' => $request->user()->id,
             ], 
             [
                 'chat_content' => $messages,
